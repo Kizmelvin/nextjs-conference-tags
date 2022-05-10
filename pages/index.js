@@ -1,10 +1,9 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button } from "react-bootstrap";
-import Assets from "../public/assets.json";
 import Tags from "../Components/Tag";
 
-const initialState = { name: "", avatar: "", baseImgId: "" };
+const initialState = { name: "", avatar: "", role: "" };
 
 export default function IndexPage() {
   const [formData, setFormData] = useState(initialState);
@@ -26,7 +25,7 @@ export default function IndexPage() {
     if (!files) return;
     const data = new FormData();
     data.append("file", files);
-    data.append("upload_preset", "melvin");
+    data.append("upload_preset", "c_tags");
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/kizmelvin/image/upload",
       {
@@ -74,18 +73,23 @@ export default function IndexPage() {
                 disabled={disableInput}
               />
             </Form.Group>
-            <h4 className="mt-3 mb-3">Choose background</h4>
-            {Assets.map((img) => (
-              <div key={img.id} className="mb-3">
-                <Form.Check
-                  type="radio"
-                  label={`${img.label}`}
-                  value={`${img.publicId}` ?? ""}
-                  name="baseImgId"
-                  onChange={handleChange}
-                />
-              </div>
-            ))}
+            <h4 className="mt-3 mb-3">Choose Role</h4>
+            <div className="mb-3">
+              <Form.Check
+                type="radio"
+                label={`Speaker`}
+                value={`SPEAKER` ?? ""}
+                name="role"
+                onChange={handleChange}
+              />
+              <Form.Check
+                type="radio"
+                label={`Attendee`}
+                value={`ATTENDEE` ?? ""}
+                name="role"
+                onChange={handleChange}
+              />
+            </div>
 
             <div
               style={{

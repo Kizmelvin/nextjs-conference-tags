@@ -15,7 +15,7 @@ import { Button, Form } from "react-bootstrap";
 
 export default function Tags({ formData }) {
   const [copy, setCopy] = useState("Copy");
-  const { name, baseImgId, avatar } = formData;
+  const { name, role, avatar } = formData;
 
   // new cloudinary instance with our cloudName here
   const cld = new Cloudinary({
@@ -24,23 +24,30 @@ export default function Tags({ formData }) {
     },
   });
 
-  let baseImage = cld.image(baseImgId);
+  let baseImage = cld
+    .image(`local-uploads/p0dfljxd7somvjytf2tc`)
+    .resize(scale().width(600).height(900));
 
   //baseImage transformations here
   baseImage.overlay(
     source(
       image(`${avatar}`).transformation(
         new Transformation()
-          .resize(scale().width(210).height(210))
-          .roundCorners(byRadius(100))
+          .resize(scale().width(370).height(370))
+          .roundCorners(byRadius(230))
           .adjust(brightness(5))
       )
-    ).position(new Position().gravity(compass("center")).offsetY(-18))
+    ).position(new Position().gravity(compass("center")).offsetY(-80))
   );
   baseImage.overlay(
     source(
-      text(`${name}`, new TextStyle("Dancing Script", 60)).textColor("orange")
-    ).position(new Position().gravity(compass("center")).offsetY(160))
+      text(`${name}`, new TextStyle("Nunito", 65)).textColor("white")
+    ).position(new Position().gravity(compass("center")).offsetY(150))
+  );
+  baseImage.overlay(
+    source(
+      text(`${role}`, new TextStyle("Nunito", 70)).textColor("purple")
+    ).position(new Position().gravity(compass("center")).offsetY(270))
   );
   const transformedImg = baseImage.toURL();
 
