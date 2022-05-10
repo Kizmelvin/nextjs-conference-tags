@@ -26,28 +26,28 @@ export default function Tags({ formData }) {
 
   let baseImage = cld
     .image(`local-uploads/p0dfljxd7somvjytf2tc`)
-    .resize(scale().width(600).height(900));
+    .resize(scale().width(500).height(700));
 
   //baseImage transformations here
   baseImage.overlay(
     source(
       image(`${avatar}`).transformation(
         new Transformation()
-          .resize(scale().width(370).height(370))
+          .resize(scale().width(280).height(280))
           .roundCorners(byRadius(230))
           .adjust(brightness(5))
       )
-    ).position(new Position().gravity(compass("center")).offsetY(-80))
+    ).position(new Position().gravity(compass("center")).offsetY(-50))
   );
   baseImage.overlay(
     source(
-      text(`${name}`, new TextStyle("Nunito", 65)).textColor("white")
-    ).position(new Position().gravity(compass("center")).offsetY(150))
+      text(`${name}`, new TextStyle("Nunito", 50)).textColor("white")
+    ).position(new Position().gravity(compass("center")).offsetY(120))
   );
   baseImage.overlay(
     source(
-      text(`${role}`, new TextStyle("Nunito", 70)).textColor("purple")
-    ).position(new Position().gravity(compass("center")).offsetY(270))
+      text(`${role}`, new TextStyle("Nunito", 55)).textColor("purple")
+    ).position(new Position().gravity(compass("center")).offsetY(220))
   );
   const transformedImg = baseImage.toURL();
 
